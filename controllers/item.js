@@ -1,5 +1,7 @@
 const Model = require('../model/item');
 const Joi = require('@hapi/joi');
+const fs = require('fs');
+const image_path = './public/images/'
 
 class Controller {
 
@@ -40,8 +42,13 @@ class Controller {
 
     //delete a item
     delete(req, res, next) {
+        console.log(JSON.stringify(req.body.name))
         Model.findOneAndDelete({ _id: req.params.id }, (err, response) => {
             if (err) return next(err);
+            //let name = req.body.name
+            if(req.body.length > 0 && req.body.name !== "" || undefined || null){
+              fs.unlinkSync(image_path + name)
+            }
             res.status(200).send({ success: true, response });
         })
     }

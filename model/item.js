@@ -15,7 +15,7 @@ const Model = new Schema({
     },
     image: {
         type: String,
-        default: "https://via.placeholder.com/150"
+        // default: "https://via.placeholder.com/150"
     },
     active: {
         type: Boolean,
@@ -30,7 +30,7 @@ const Model = new Schema({
     versionKey: false,
 })
 
-Model.pre(['find'], function () {
+Model.pre(['find', 'save'], function () {
     this.populate(['category']);
 });
 

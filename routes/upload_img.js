@@ -22,9 +22,14 @@ const upload = multer({
 // add image
 router.post('/', upload.single('uploaded_file'), function (req, res) {
   try {
+    let name = req.body.name 
+    console.log(JSON.stringify(name))
+    if(name !== "" || undefined || null ){
+      fs.unlinkSync(image_path + name)
+    }
     res.send(req.file);
   } catch (err) {
-    res.send(400);
+    res.status(400).send(err);
   }
 });
 
